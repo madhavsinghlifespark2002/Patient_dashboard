@@ -41,7 +41,13 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
+            implementation("io.ktor:ktor-client-core:3.1.0")
+            implementation("io.ktor:ktor-client-cio:3.1.0")
+            implementation("io.ktor:ktor-client-content-negotiation:3.1.0")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:3.1.0")
+        }
+        jvmMain.dependencies{
+            implementation("io.ktor:ktor-client-okhttp:2.3.4") // for desktop JVM
         }
     }
 }
