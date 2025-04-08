@@ -82,7 +82,8 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
-            implementation("io.ktor:ktor-client-okhttp:2.3.4") // for desktop JVM
+            implementation("io.ktor:ktor-client-okhttp:2.3.4")
+            implementation("cafe.adriel.voyager:voyager-navigator:1.1.0-beta03")
         }
     }
 }

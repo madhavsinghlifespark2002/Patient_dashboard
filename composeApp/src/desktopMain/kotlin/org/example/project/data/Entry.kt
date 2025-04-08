@@ -1,15 +1,10 @@
 package org.example.project
 
-import androidx.annotation.Keep
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerialName
 
-//
-//@Keep
-//data class Entry (
-//
-//  @SerialName("fullUrl"  ) var fullUrl  : String?   = null,
-//  @SerialName("resource" ) var resource : Resourcem? = Resourcem(),
-//  @SerialName("search"   ) var search   : Search?   = Search()
-//
-//)
+@Serializable
+data class Entry(
+    var fullUrl: String? = null,
+    var resource: Resourcem? = null,
+    var search: Search? = null
+)
