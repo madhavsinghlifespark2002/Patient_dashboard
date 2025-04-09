@@ -25,12 +25,14 @@ import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.res.useResource
 import androidx.compose.ui.unit.dp
 import org.example.project.Component.AccountInfoItem
+import org.example.project.Component.DetailsPage
+import org.example.project.viewmodels.SharedViewModel
 import javax.imageio.ImageIO
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun AccountScreen() {
-    var selectedItem by remember { mutableStateOf<String?>("Dashboard") }
+fun AccountPage(viewModel: SharedViewModel) {
+    var selectedItem by viewModel.selectedItem
     Row(
         modifier = Modifier.fillMaxWidth().padding(12.dp)
     ) {
@@ -93,7 +95,7 @@ fun AccountScreen() {
                 AccountInfoItem(
                     image = person,
                     label = "Patient",
-                    isSelected = selectedItem == "Patient"
+                    isSelected = selectedItem == "Patient" || selectedItem == "patientDetail"
                 ) {
                     selectedItem = "Patient"
                 }
@@ -121,16 +123,16 @@ fun AccountScreen() {
         ) {
             Column(modifier = Modifier.padding(12.dp)) {
                 when (selectedItem) {
-                    "Dashboard" -> DashboardPage()
-                    "Clinic Information" -> DashboardPage()
-                    "Professional Details" -> DashboardPage()
-                    "Account Security" -> DashboardPage()
-                    "Payment and Billing" -> DashboardPage()
-                    else -> DashboardPage()
+                    "Dashboard" -> DashboardPage(viewModel)
+                    "patientDetail" ->  DetailsPage(viewModel)
+                    "Professional Details" -> DashboardPage(viewModel)
+                    "Account Security" -> DashboardPage(viewModel)
+                    "Payment and Billing" -> DashboardPage(viewModel)
+
+                    else -> DashboardPage(viewModel)
                 }
             }
         }
     }
-
 }
 

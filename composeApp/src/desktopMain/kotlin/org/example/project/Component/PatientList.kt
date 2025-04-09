@@ -44,36 +44,13 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import org.example.project.ApiService.ApiService
 import org.example.project.data.FhirBundle
 import org.example.project.routeToScreen
+import org.example.project.viewmodels.SharedViewModel
 
 // App Composable to display the patient list
 @Composable
-fun PatientList() {
-    val patientList = listOf(
-        Patient(1, "John Doe", "Dr. Smith", 30, "Outpatient", "Admitted"),
-        Patient(2, "Jane Smith", "Dr. Brown", 45, "Inpatient", "Discharged"),
-        Patient(3, "Alice Johnson", "Dr. Adams", 50, "Outpatient", "Admitted"),
-        Patient(4, "Robert Brown", "Dr. White", 60, "Inpatient", "Discharged"),
-        Patient(5, "Emily Davis", "Dr. Clark", 27, "Outpatient", "Admitted"),
-        Patient(6, "Michael Wilson", "Dr. Lewis", 33, "Inpatient", "Discharged"),
-        Patient(7, "Sarah Miller", "Dr. Hall", 40, "Outpatient", "Admitted"),
-        Patient(8, "David Anderson", "Dr. Young", 55, "Inpatient", "Discharged"),
-        Patient(9, "Emma Thomas", "Dr. Martin", 23, "Outpatient", "Admitted"),
-        Patient(10, "Daniel Moore", "Dr. Thompson", 48, "Inpatient", "Discharged"),
-        Patient(11, "Sophia White", "Dr. Walker", 37, "Outpatient", "Admitted"),
-        Patient(12, "James Harris", "Dr. Harris", 52, "Inpatient", "Discharged"),
-        Patient(13, "Olivia Martin", "Dr. Evans", 29, "Outpatient", "Admitted"),
-        Patient(14, "William Thompson", "Dr. Carter", 65, "Inpatient", "Discharged"),
-        Patient(15, "Charlotte Lee", "Dr. Scott", 34, "Outpatient", "Admitted"),
-        Patient(16, "Benjamin Clark", "Dr. King", 41, "Inpatient", "Discharged"),
-        Patient(17, "Amelia Walker", "Dr. Wright", 22, "Outpatient", "Admitted"),
-        Patient(18, "Henry Lewis", "Dr. Lopez", 47, "Inpatient", "Discharged"),
-        Patient(19, "Evelyn Hall", "Dr. Hill", 39, "Outpatient", "Admitted"),
-        Patient(20, "Alexander Young", "Dr. Madhav", 58, "Inpatient", "Discharged")
-    )
+fun PatientList(viewModel: SharedViewModel) {
     val repository = ApiService()
-    //  val patients by viewModel.patients.collectAsState()
     var patientData by remember { mutableStateOf<FhirBundle?>(null) }
-
     suspend fun fetchPatients() {
         //viewModelScope.launch {
         patientData = repository.fetchPatients()
@@ -123,7 +100,8 @@ fun PatientList() {
                                     entry.resource?.let { patient ->
                                         PatientRow(
                                             backgroundColor = if (index % 2 == 0) Color.White else Color(0xFFF8FAFB),
-                                            patient = patient
+                                            patient = patient,
+                                            viewModel = viewModel
                                         )
                                     }
                                 }

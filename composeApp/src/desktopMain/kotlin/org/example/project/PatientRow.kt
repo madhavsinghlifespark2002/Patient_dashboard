@@ -19,18 +19,20 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import org.example.project.data.FhirBundle
 import org.example.project.data.Patient
+import org.example.project.viewmodels.SharedViewModel
 
 @Composable
-fun PatientRow(backgroundColor: Color, patient: Resourcem) {
+fun PatientRow(backgroundColor: Color, patient: Resourcem, viewModel: SharedViewModel) {
     val navigator = LocalNavigator.currentOrThrow
     Row(
         modifier = Modifier.fillMaxWidth().background(color = backgroundColor)
             .padding(8.dp).clickable{
-                navigator.push(routeToScreen("/details"))
+                //navigator.push(routeToScreen("/details"))
+                viewModel.selectedItem.value = "patientDetail"
+                viewModel.patientId.value = patient.id.toString()
             },
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-//        Text(patient.entry, modifier = Modifier.weight(1f))
         Text(patient.id.toString(), modifier = Modifier.weight(1f))
         Text(
             patient.name.firstOrNull { it.use == "official" }
@@ -44,30 +46,5 @@ fun PatientRow(backgroundColor: Color, patient: Resourcem) {
             modifier = Modifier.weight(1.5f)
         )
         Text(patient.active.toString(), modifier = Modifier.weight(1.5f))
-//        Text(patient.doctor, modifier = Modifier.weight(1.5f))
-//        Text(patient.age.toString(), modifier = Modifier.weight(0.5f))
-//        Text(patient.type, modifier = Modifier.weight(1f))
-//        Text(patient.status, modifier = Modifier.weight(1.5f))
     }
 }
-//
-//@Composable
-//fun PatientRow(backgroundColor: Color, patient: Resourcem) {
-//    val navigator = LocalNavigator.currentOrThrow
-//
-//    // Get official or usual name
-//    val displayName = patient.name
-//
-//    Row(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .background(color = backgroundColor)
-//            .padding(8.dp)
-//            .clickable {
-//                navigator.push(routeToScreen("/details"))
-//            },
-//        horizontalArrangement = Arrangement.SpaceBetween
-//    ) {
-//        Text(displayName.toString(), modifier = Modifier.weight(1f))
-//    }
-//}

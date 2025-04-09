@@ -19,12 +19,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.Component.DashboardCard
 import org.example.project.Component.PatientList
+import org.example.project.viewmodels.SharedViewModel
 import javax.imageio.ImageIO
 
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DashboardPage(){
+fun DashboardPage(viewModel: SharedViewModel){
     Column(
         modifier = Modifier.padding(12.dp)
     ){
@@ -92,7 +93,7 @@ fun DashboardPage(){
         Row(
             modifier = Modifier.padding(horizontal = 12.dp)
         ){
-            PatientList()
+            PatientList(viewModel)
         }
 
     }
